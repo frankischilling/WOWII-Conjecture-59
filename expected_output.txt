@@ -1,0 +1,7 @@
+|V| = 18, |E| = 36, connected = True
+degree sequence = [17, 6, 6, 6, 6, 5, 5, 4, 4, 3, 3, 1, 1, 1, 1, 1, 1, 1]
+Havel--Hakimi residue = 10
+b(G) = 17; witness = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17]
+f(G) = 13; witness = [0, 1, 2, 3, 4, 5, 11, 12, 13, 14, 15, 16, 17]
+ceil(sqrt(residue*b)) = ceil(sqrt(170)) = 14
+Conjectured inequality: 13 >= 14  ->  False
