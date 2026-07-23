@@ -5,23 +5,23 @@
 This repository gives an explicit connected graph on 18 vertices that disproves the following form of **Written on the Wall II, Conjecture 59**:
 
 $$
-f(G) \ge \left\lceil \sqrt{\operatorname{residue}(G)\,b(G)} \right\rceil,
+f(G) \ge \left\lceil \sqrt{\mathrm{residue}(G)b(G)} \right\rceil,
 $$
 
 where:
 
 - $f(G)$ is the maximum order of an induced forest;
 - $b(G)$ is the maximum order of an induced bipartite subgraph; and
-- $\operatorname{residue}(G)$ is the Havel--Hakimi residue.
+- $\mathrm{residue}(G)$ is the Havel--Hakimi residue.
 
 For the graph constructed here,
 
 | Invariant | Exact value |
 |---|---:|
-| $\operatorname{residue}(G)$ | $10$ |
+| $\mathrm{residue}(G)$ | $10$ |
 | $b(G)$ | $17$ |
 | $f(G)$ | $13$ |
-| $\left\lceil\sqrt{\operatorname{residue}(G)b(G)}\right\rceil$ | $14$ |
+| $\left\lceil\sqrt{\mathrm{residue}(G)b(G)}\right\rceil$ | $14$ |
 
 Consequently, the conjectured inequality becomes $13 \ge 14$, which is false.
 
@@ -79,7 +79,7 @@ For the upper bound, consider any 14-vertex set $S$.
 
 Hence no induced forest has 14 vertices, and $f(G)=13$.
 
-### Havel--Hakimi residue: $\operatorname{residue}(G)=10$
+### Havel--Hakimi residue: $\mathrm{residue}(G)=10$
 
 The sorted degree sequence is
 
