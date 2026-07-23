@@ -1,0 +1,364 @@
+\documentclass[11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+
+\definecolor{linkblue}{RGB}{31,78,121}
+\definecolor{resultgreen}{RGB}{32,112,72}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=linkblue,
+  urlcolor=linkblue,
+  citecolor=linkblue,
+  pdftitle={An 18-Vertex Counterexample to WOWII Conjecture 59},
+  pdfauthor={Prepared for reproducible verification},
+  pdfsubject={Graph-theoretic counterexample with exhaustive verification},
+  pdfkeywords={graph theory, Havel-Hakimi residue, induced forest, bipartite subgraph, counterexample}
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{WOWII Conjecture 59}
+\rhead{18-vertex counterexample}
+\cfoot{\thepage}
+\setlength{\headheight}{14pt}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{proposition}{Proposition}
+
+\newcommand{\res}{\operatorname{residue}}
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\newcommand{\floor}[1]{\left\lfloor #1 \right\rfloor}
+\newcommand{\set}[1]{\left\{#1\right\}}
+
+\title{\textbf{An 18-Vertex Counterexample\\to WOWII Conjecture 59}}
+\author{A reproducible counterexample note}
+\date{July 23, 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We give an explicit connected simple graph $G$ on $18$ vertices for which
+\[
+  \res(G)=10,\qquad b(G)=17,\qquad f(G)=13,
+\]
+where $b(G)$ is the maximum order of an induced bipartite subgraph and $f(G)$
+is the maximum order of an induced forest. Consequently,
+\[
+  \ceil{\sqrt{\res(G)b(G)}}=\ceil{\sqrt{170}}=14>13=f(G),
+\]
+disproving the stated form of Written on the Wall II, Conjecture 59. The
+argument below proves all three invariant values exactly. An accompanying
+standard-library Python program independently enumerates every one of the
+$2^{18}$ induced vertex subsets.
+\end{abstract}
+
+\section{The conjectured inequality}
+
+The form of WOWII Conjecture 59 considered here is
+\begin{equation}\label{eq:conjecture}
+  f(G)\ \ge\ \ceil{\sqrt{\res(G)b(G)}}
+\end{equation}
+for every finite simple connected graph $G$. Here:
+\begin{itemize}[leftmargin=2em]
+  \item $f(G)$ is the maximum number of vertices in an induced forest of $G$;
+  \item $b(G)$ is the maximum number of vertices in an induced bipartite
+        subgraph of $G$; and
+  \item $\res(G)$ is the Havel--Hakimi residue, namely the number of zeros
+        left when the degree sequence is reduced until all remaining entries
+        are zero.
+\end{itemize}
+
+\begin{theorem}\label{thm:main}
+There exists a connected graph $G$ on $18$ vertices with
+\[
+\res(G)=10,\qquad b(G)=17,\qquad f(G)=13.
+\]
+In particular, $G$ violates \eqref{eq:conjecture}.
+\end{theorem}
+
+\section{Construction of the graph}
+
+Let
+\[
+ A=\set{a_0,a_1,a_2,a_3,a_4},\qquad
+ B=\set{b_0,b_1,b_2,b_3,b_4},
+\]
+let $h$ be one additional vertex, and let
+\[
+ L=\set{\ell_1,\ell_2,\ldots,\ell_7}
+\]
+be seven further vertices. Thus
+\[
+ V(G)=A\cup B\cup\set{h}\cup L.
+\]
+
+The graph induced by $A\cup B$ is bipartite. Its neighborhoods on the $B$ side
+are given in Table~\ref{tab:neighborhoods}.
+
+\begin{table}[ht]
+\centering
+\caption{Neighborhoods in the ten-vertex bipartite core.}
+\label{tab:neighborhoods}
+\begin{tabular}{@{}c l c@{}}
+\toprule
+Vertex & Neighborhood in $A$ & Degree in the core \\
+\midrule
+$b_0$ & $\set{a_0,a_1}$                         & $2$ \\
+$b_1$ & $\set{a_0,a_1,a_2}$                     & $3$ \\
+$b_2$ & $\set{a_0,a_1,a_2,a_3}$                 & $4$ \\
+$b_3$ & $A$                                      & $5$ \\
+$b_4$ & $A$                                      & $5$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Finally, join $h$ to every other vertex and add no further edges. In
+particular, each $\ell_i$ is a pendant vertex adjacent only to $h$. Since $h$
+is universal, $G$ is connected. The core has $19$ edges and the universal hub
+adds $17$, so $|E(G)|=36$.
+
+For machine verification we use the numerical labeling
+\[
+ a_i=i,\qquad b_i=5+i,\qquad h=10,\qquad
+ L=\set{11,12,13,14,15,16,17}.
+\]
+
+\section{The induced bipartite number}
+
+\begin{proposition}\label{prop:b}
+The graph $G$ satisfies $b(G)=17$.
+\end{proposition}
+
+\begin{proof}
+Deleting $h$ leaves the bipartite core on $A\cup B$ together with seven
+isolated vertices. Hence $G-h$ is an induced bipartite subgraph on $17$
+vertices, and therefore $b(G)\ge17$.
+
+On the other hand, $a_0b_0$, $b_0h$, and $ha_0$ are all edges. Thus
+$\set{h,a_0,b_0}$ spans a triangle, so the full $18$-vertex graph is not
+bipartite. No induced bipartite subgraph can therefore have order $18$.
+Hence $b(G)=17$.
+\end{proof}
+
+\section{The induced forest number}
+
+Write $H=G[A\cup B]$ for the ten-vertex bipartite core.
+
+\begin{lemma}\label{lem:alpha-core}
+The independence number of $H$ is $5$.
+\end{lemma}
+
+\begin{proof}
+The part $A$ is independent, so $\alpha(H)\ge5$. The five edges
+\[
+ a_0b_0,\quad a_1b_1,\quad a_2b_2,\quad a_3b_3,\quad a_4b_4
+\]
+form a perfect matching of $H$. An independent set contains at most one
+endpoint from each matching edge, so it has size at most $5$. Therefore
+$\alpha(H)=5$.
+\end{proof}
+
+\begin{lemma}\label{lem:seven-core}
+Every set of seven vertices of $H$ contains a $4$-cycle.
+\end{lemma}
+
+\begin{proof}
+Let $S\subseteq V(H)$ have $|S|=7$, and put
+\[
+ a=|S\cap A|,\qquad b=|S\cap B|.
+\]
+Since $a+b=7$ and $a,b\le5$, the possibilities are
+\[
+ (a,b)\in\set{(5,2),(4,3),(3,4),(2,5)}.
+\]
+The neighborhoods in Table~\ref{tab:neighborhoods} are nested:
+\[
+ N(b_0)\subset N(b_1)\subset N(b_2)\subset N(b_3)=N(b_4)=A,
+\]
+with sizes $2,3,4,5,5$.
+
+\begin{enumerate}[label=(\alph*),leftmargin=2.5em]
+  \item If $(a,b)=(5,2)$, the two selected vertices of $B$ have at least two
+        common neighbors in $A$.
+  \item If $(a,b)=(4,3)$, choose the two selected $B$-vertices with largest
+        neighborhoods. Their common neighborhood has size at least $3$.
+        Since only one vertex of $A$ is omitted, at least two of those common
+        neighbors lie in $S$.
+  \item If $(a,b)=(3,4)$, the two selected $B$-vertices with largest
+        neighborhoods have at least four common neighbors in $A$. The
+        complement of that common neighborhood inside $A$ has size at most
+        one, so any selected three vertices of $A$ include at least two common
+        neighbors.
+  \item If $(a,b)=(2,5)$, both $b_3$ and $b_4$ are selected and are adjacent
+        to both selected vertices of $A$.
+\end{enumerate}
+
+In every case, two selected vertices of $B$ have two common selected neighbors
+in $A$. These four vertices span a $K_{2,2}$ and hence a $4$-cycle.
+\end{proof}
+
+\begin{proposition}\label{prop:f}
+The graph $G$ satisfies $f(G)=13$.
+\end{proposition}
+
+\begin{proof}
+The set
+\[
+ B\cup\set{h}\cup L
+\]
+has $5+1+7=13$ vertices and induces a star centered at $h$. Therefore
+$f(G)\ge13$.
+
+For the reverse inequality, let $S\subseteq V(G)$ have $|S|=14$.
+
+If $h\in S$, then at most seven vertices of $S\setminus\set{h}$ belong to
+$L$, so $S$ contains at least six vertices of $H$. By
+Lemma~\ref{lem:alpha-core}, those six core vertices contain an edge $xy$.
+The universal hub is adjacent to both $x$ and $y$, so $hxyh$ is a triangle in
+$G[S]$. Thus $G[S]$ is not a forest.
+
+If $h\notin S$, then at most seven vertices of $S$ belong to $L$, so $S$
+contains at least seven vertices of $H$. By Lemma~\ref{lem:seven-core}, those
+core vertices contain a $4$-cycle. Again $G[S]$ is not a forest.
+
+No induced forest has $14$ vertices, so $f(G)\le13$. Together with the lower
+bound, this gives $f(G)=13$.
+\end{proof}
+
+\section{The Havel--Hakimi residue}
+
+The degrees are
+\begin{itemize}[leftmargin=2em]
+  \item $17$ for the hub $h$;
+  \item $6,6,5,4,3$ on $A$;
+  \item $3,4,5,6,6$ on $B$; and
+  \item $1$ for each of the seven leaves.
+\end{itemize}
+Thus the sorted degree sequence is
+\[
+ d_0=[17,6^4,5^2,4^2,3^2,1^7],
+\]
+where $x^k$ denotes $k$ copies of $x$. Successive Havel--Hakimi reductions are
+\begin{align*}
+ d_0&=[17,6^4,5^2,4^2,3^2,1^7],\\
+ d_1&=[5^4,4^2,3^2,2^2,0^7],\\
+ d_2&=[4^3,3^4,2^2,0^7],\\
+ d_3&=[3^4,2^4,0^7],\\
+ d_4&=[2^7,0^7],\\
+ d_5&=[2^4,1^2,0^7],\\
+ d_6&=[2,1^4,0^7],\\
+ d_7&=[1^2,0^9],\\
+ d_8&=[0^{10}].
+\end{align*}
+The terminal list has ten zeros, and hence
+\begin{equation}\label{eq:residue}
+  \res(G)=10.
+\end{equation}
+
+\section{Contradiction to Conjecture 59}
+
+Propositions~\ref{prop:b} and~\ref{prop:f}, together with
+\eqref{eq:residue}, give
+\[
+ \res(G)b(G)=10\cdot17=170=13^2+1.
+\]
+Therefore
+\[
+ \ceil{\sqrt{\res(G)b(G)}}=\ceil{\sqrt{170}}=14,
+\]
+whereas $f(G)=13$. The conjectured inequality reads
+\[
+ 13\ge14,
+\]
+which is false. This proves Theorem~\ref{thm:main}.
+
+\begin{center}
+\setlength{\fboxsep}{10pt}
+\color{resultgreen}
+\fbox{\color{black}\parbox{0.82\linewidth}{\centering
+\textbf{Conclusion.} The graph above is a connected 18-vertex counterexample
+to the stated form of WOWII Conjecture 59.}}
+\end{center}
+
+\section{Independent exhaustive verification}
+
+The repository includes
+\begin{center}
+\texttt{verification/verify\_counterexample.py}.
+\end{center}
+The program uses only the Python standard library. It constructs the exact
+edge set above, checks connectivity, computes the Havel--Hakimi residue, and
+examines all $2^{18}=262{,}144$ vertex subsets. Each induced subgraph is tested
+for bipartiteness by breadth-first two-coloring and for acyclicity by a
+union--find cycle test. It then asserts the exact values
+\[
+ \res(G)=10,\qquad b(G)=17,\qquad f(G)=13,
+\]
+and the final strict inequality $13<14$.
+
+From the repository root, run
+\begin{verbatim}
+python3 verification/verify_counterexample.py
+\end{verbatim}
+The expected output is
+\begin{verbatim}
+|V| = 18, |E| = 36, connected = True
+degree sequence = [17, 6, 6, 6, 6, 5, 5, 4, 4, 3, 3, 1, 1, 1, 1, 1, 1, 1]
+Havel--Hakimi residue = 10
+b(G) = 17; witness = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13, 14, 15, 16, 17]
+f(G) = 13; witness = [0, 1, 2, 3, 4, 5, 11, 12, 13, 14, 15, 16, 17]
+ceil(sqrt(residue*b)) = ceil(sqrt(170)) = 14
+Conjectured inequality: 13 >= 14  ->  False
+\end{verbatim}
+
+\section{Sources, scope, and attribution}
+
+The original WOWII list is available at
+\begin{center}
+\url{http://cms.dt.uh.edu/faculty/delavinae/research/wowII/all.html#conj59}.
+\end{center}
+The corresponding Formal Conjectures transcription is at
+\begin{center}
+\url{https://github.com/google-deepmind/formal-conjectures/blob/main/FormalConjectures/WrittenOnTheWallII/GraphConjecture59.lean}.
+\end{center}
+A related upstream Lean-certification pull request is
+\begin{center}
+\url{https://github.com/google-deepmind/formal-conjectures/pull/4583}.
+\end{center}
+This note concerns the exact inequality and invariant meanings stated in
+Section~1. It makes no claim of historical or mathematical priority; related
+upstream work should be consulted when assigning attribution.
+
+\appendix
+\section{Explicit numeric edge list}
+
+Under the labeling
+\[
+ A=\set{0,1,2,3,4},\quad B=\set{5,6,7,8,9},\quad h=10,
+ \quad L=\set{11,12,13,14,15,16,17},
+\]
+the core edges are
+\begin{align*}
+ &(0,5),(1,5),\\
+ &(0,6),(1,6),(2,6),\\
+ &(0,7),(1,7),(2,7),(3,7),\\
+ &(0,8),(1,8),(2,8),(3,8),(4,8),\\
+ &(0,9),(1,9),(2,9),(3,9),(4,9).
+\end{align*}
+In addition, $(10,v)$ is an edge for every $v\ne10$. There are no other
+edges.
+
+\end{document}
