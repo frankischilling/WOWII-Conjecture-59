@@ -1,6 +1,6 @@
 # Counterexample to WOWII Conjecture 59
 
-[Read the proof (PDF)](proof/WOWII_Conjecture_59_Counterexample.pdf) | [LaTeX source](proof/WOWII_Conjecture_59_Counterexample.tex) | [Exact verifier](verification/verify_counterexample.py)
+[Read the proof (PDF)](/WOWII_Conjecture_59_Counterexample.pdf) | [LaTeX source](/WOWII_Conjecture_59_Counterexample.tex) | [Exact verifier](/verify_counterexample.py)
 
 This repository gives an explicit connected graph on 18 vertices that disproves the following form of **Written on the Wall II, Conjecture 59**:
 
