@@ -1,17 +1,17 @@
 \documentclass[11pt]{article}
 
 \usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
 \usepackage{lmodern}
+\usepackage{microtype}
 \usepackage[margin=1in]{geometry}
 \usepackage{amsmath,amssymb,amsthm,mathtools}
 \usepackage{booktabs}
 \usepackage{array}
 \usepackage{enumitem}
-\usepackage{microtype}
 \usepackage{xcolor}
-\usepackage{hyperref}
 \usepackage{fancyhdr}
+\usepackage{xurl}
+\usepackage{hyperref}
 
 \definecolor{linkblue}{RGB}{31,78,121}
 \definecolor{resultgreen}{RGB}{32,112,72}
@@ -32,10 +32,12 @@
 \rhead{18-vertex counterexample}
 \cfoot{\thepage}
 \setlength{\headheight}{14pt}
+\setlength{\parskip}{0pt}
+\emergencystretch=2em
 
 \newtheorem{theorem}{Theorem}
-\newtheorem{lemma}{Lemma}
-\newtheorem{proposition}{Proposition}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
 
 \newcommand{\res}{\operatorname{residue}}
 \newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
@@ -297,7 +299,7 @@ to the stated form of WOWII Conjecture 59.}}
 
 The repository includes
 \begin{center}
-\texttt{verification/verify\_counterexample.py}.
+\texttt{WOWII-Conjecture-59/verify\_counterexample.py}.
 \end{center}
 The program uses only the Python standard library. It constructs the exact
 edge set above, checks connectivity, computes the Havel--Hakimi residue, and
@@ -311,7 +313,7 @@ and the final strict inequality $13<14$.
 
 From the repository root, run
 \begin{verbatim}
-python3 verification/verify_counterexample.py
+python WOWII-Conjecture-59/verify_counterexample.py
 \end{verbatim}
 The expected output is
 \begin{verbatim}
@@ -342,8 +344,10 @@ This note concerns the exact inequality and invariant meanings stated in
 Section~1. It makes no claim of historical or mathematical priority; related
 upstream work should be consulted when assigning attribution.
 
+\clearpage
 \appendix
 \section{Explicit numeric edge list}
+\thispagestyle{fancy}
 
 Under the labeling
 \[
