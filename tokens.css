@@ -1,0 +1,85 @@
+/* Hallmark · genre: editorial · theme: Almanac · anchor hue: slate 250
+ * pre-emit critique: P5 H5 E5 S5 R5 V5
+ */
+
+:root {
+  color-scheme: light;
+
+  /* Almanac palette: cool reference paper, dense slate ink, one blue signal. */
+  --color-paper: oklch(94% 0.008 245);
+  --color-paper-2: oklch(91% 0.01 245);
+  --color-paper-3: oklch(86% 0.012 240);
+  --color-rule: oklch(74% 0.012 240);
+  --color-rule-2: oklch(38% 0.018 240);
+  --color-muted: oklch(46% 0.014 245);
+  --color-neutral: oklch(28% 0.016 245);
+  --color-ink-2: oklch(20% 0.018 245);
+  --color-ink: oklch(16% 0.02 245);
+  --color-accent: oklch(38% 0.135 250);
+  --color-accent-ink: oklch(96% 0.008 245);
+  --color-focus: oklch(42% 0.16 250);
+  --color-error: oklch(48% 0.18 28);
+  --color-error-ink: oklch(97% 0.008 28);
+
+  /* Type: grotesk text plus one technical mono register. */
+  --font-display: "Hanken Grotesk", "Aptos Display", ui-sans-serif, sans-serif;
+  --font-body: "Hanken Grotesk", "Aptos", ui-sans-serif, sans-serif;
+  --font-serif: "IBM Plex Mono", "Cascadia Mono", ui-monospace, monospace;
+  --font-label: "Hanken Grotesk", "Aptos", ui-sans-serif, sans-serif;
+  --font-mono: "IBM Plex Mono", "Cascadia Mono", ui-monospace, monospace;
+
+  /* Major-third type scale. */
+  --text-xs: 0.75rem;
+  --text-graph-xs: 0.625rem;
+  --text-graph-sm: 0.6875rem;
+  --text-sm: 0.8125rem;
+  --text-base: 1rem;
+  --text-md: 1.25rem;
+  --text-lg: 1.5625rem;
+  --text-xl: 1.9531rem;
+  --text-2xl: 2.4414rem;
+  --text-3xl: 3.0518rem;
+  --text-4xl: 3.8147rem;
+  --text-display: clamp(2.5rem, 5vw + 0.5rem, 4.75rem);
+  --text-display-s: clamp(2rem, 3vw + 0.5rem, 3.25rem);
+
+  /* Four-point spacing scale. */
+  --space-3xs: 0.125rem;
+  --space-2xs: 0.25rem;
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4.5rem;
+  --space-4xl: 7rem;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-micro: 100ms;
+  --dur-short: 180ms;
+  --dur-long: 360ms;
+
+  --rule-hair: 1px;
+  --rule-graph: 1.5px;
+  --rule-fine: 2px;
+  --rule-heavy: 4px;
+  --radius-card: 0;
+  --radius-pill: 0;
+  --radius-input: 0;
+
+  --page-max: 84rem;
+  --page-gutter: clamp(1rem, 4vw, 3rem);
+  --measure: 64ch;
+  --rail-size: 4rem;
+
+  --z-base: 1;
+  --z-raised: 10;
+  --z-dropdown: 100;
+  --z-sticky: 200;
+  --z-modal: 400;
+  --z-toast: 500;
+  --z-tooltip: 600;
+}

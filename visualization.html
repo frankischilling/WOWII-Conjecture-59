@@ -1,0 +1,1857 @@
+<!doctype html>
+<html lang="en" data-theme="almanac">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="An interactive atlas of the 18-vertex counterexample to WOWII Conjecture 59.">
+  <title>Conjecture 59 — counterexample atlas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;family=IBM+Plex+Mono:wght@400;600&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="tokens.css">
+  <style>
+    /* Hallmark · genre: editorial · macrostructure: Map / Diagram · theme: Almanac
+     * enrichment: none · nav: N3 Side-rail (left / 4rem / numbered)
+     * proof: T4 Stat strip (4-up / display numerals / qualifier under)
+     * CTA: C1 Outlined chip (rectangular / compact / arrow)
+     * footer: Ft4 Dense colophon (mono / paragraphs / date + attribution)
+     * audience: graph theorists · use: detailed proof exploration · tone: technical, austere
+     * contrast: pass (40–41) · slop: pass (42–45)
+     * honest: pass (46) · chrome: pass (47) · tokens: pass (48) · icons: pass (30)
+     * mobile: pass (34, 49, 50–57) · pre-emit critique: P5 H5 E5 S5 R5 V5
+     */
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      overflow-x: clip;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-width: 20rem;
+      margin: 0;
+      color: var(--color-ink);
+      background-color: var(--color-paper);
+      font-family: var(--font-body);
+      font-size: var(--text-base);
+      line-height: 1.55;
+    }
+
+    button,
+    summary {
+      font: inherit;
+    }
+
+    a {
+      color: inherit;
+      text-underline-offset: 0.22em;
+      text-decoration-thickness: var(--rule-hair);
+    }
+
+    a:not(.cta-outline):active,
+    summary:active {
+      opacity: 0.65;
+    }
+
+    a[aria-disabled="true"],
+    summary[aria-disabled="true"] {
+      cursor: not-allowed;
+      opacity: 0.45;
+      pointer-events: none;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    h1,
+    h2,
+    h3 {
+      min-width: 0;
+      overflow-wrap: anywhere;
+      font-family: var(--font-display);
+      font-style: normal;
+      line-height: 1.1;
+    }
+
+    h1 {
+      max-width: 13ch;
+      font-size: var(--text-display);
+      font-weight: 700;
+      letter-spacing: -0.035em;
+    }
+
+    h2 {
+      font-size: var(--text-2xl);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+    }
+
+    h3 {
+      font-size: var(--text-xl);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .skip-link {
+      position: fixed;
+      inset-block-start: var(--space-md);
+      inset-inline-start: var(--space-md);
+      z-index: var(--z-modal);
+      padding: var(--space-sm) var(--space-md);
+      color: var(--color-accent-ink);
+      background-color: var(--color-accent);
+      font-family: var(--font-label);
+      font-size: var(--text-sm);
+      transform: translateY(-250%);
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+    }
+
+    :focus-visible {
+      outline: var(--rule-fine) solid var(--color-focus);
+      outline-offset: var(--space-2xs);
+    }
+
+    .rail {
+      display: none;
+    }
+
+    .mobile-nav {
+      position: relative;
+      z-index: var(--z-sticky);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 3.5rem;
+      padding-inline: var(--page-gutter);
+      border-block-end: var(--rule-hair) solid var(--color-rule-2);
+      background-color: var(--color-paper);
+    }
+
+    .mobile-nav__mark {
+      display: inline-flex;
+      min-height: 2.75rem;
+      align-items: center;
+      font-family: var(--font-label);
+      font-size: var(--text-sm);
+      font-weight: 600;
+      line-height: 1;
+      text-decoration: none;
+      letter-spacing: 0.04em;
+    }
+
+    .mobile-index {
+      position: relative;
+    }
+
+    .mobile-index summary {
+      display: grid;
+      min-width: 4.5rem;
+      min-height: 2.75rem;
+      cursor: pointer;
+      font-family: var(--font-label);
+      font-size: var(--text-sm);
+      line-height: 1;
+      list-style: none;
+      place-items: center;
+      white-space: nowrap;
+    }
+
+    .mobile-index summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .mobile-index summary::after {
+      margin-inline-start: var(--space-xs);
+      content: "+";
+    }
+
+    .mobile-index[open] summary::after {
+      content: "−";
+    }
+
+    .mobile-index__sheet {
+      position: absolute;
+      inset-block-start: calc(100% + var(--rule-hair));
+      inset-inline-end: 0;
+      display: grid;
+      min-width: 12rem;
+      border: var(--rule-hair) solid var(--color-rule-2);
+      color: var(--color-ink);
+      background-color: var(--color-paper);
+    }
+
+    .mobile-index__sheet a {
+      min-height: 2.75rem;
+      padding: var(--space-sm) var(--space-md);
+      border-block-end: var(--rule-hair) solid var(--color-rule);
+      font-family: var(--font-label);
+      font-size: var(--text-sm);
+      line-height: 1;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .mobile-index__sheet a:last-child {
+      border-block-end: 0;
+    }
+
+    .page {
+      width: min(100%, var(--page-max));
+      margin-inline: auto;
+      padding-inline: var(--page-gutter);
+    }
+
+    .orientation {
+      display: grid;
+      gap: var(--space-2xl);
+      padding-block: var(--space-2xl) var(--space-3xl);
+      border-block-end: var(--rule-hair) solid var(--color-rule-2);
+    }
+
+    .orientation__copy {
+      display: grid;
+      gap: var(--space-lg);
+      min-width: 0;
+    }
+
+    .orientation__context {
+      width: max-content;
+      max-width: 100%;
+      color: var(--color-neutral);
+      font-family: var(--font-label);
+      font-size: var(--text-sm);
+      letter-spacing: 0.02em;
+    }
+
+    .orientation__lede {
+      max-width: 60ch;
+      color: var(--color-ink-2);
+      font-size: var(--text-md);
+      line-height: 1.5;
+    }
+
+    .bound {
+      align-self: end;
+      display: grid;
+      gap: var(--space-md);
+      padding-block-start: var(--space-xl);
+      border-block-start: var(--rule-hair) solid var(--color-rule-2);
+    }
+
+    .bound__label {
+      color: var(--color-neutral);
+      font-family: var(--font-label);
+      font-size: var(--text-sm);
+    }
+
+    .bound__formula {
+      display: flex;
+      gap: var(--space-sm);
+      align-items: baseline;
+      font-family: var(--font-serif);
+      font-size: clamp(2.75rem, 11vw, 5.5rem);
+      font-variant-numeric: tabular-nums;
+      line-height: 0.9;
+    }
+
+    .bound__relation {
+      color: var(--color-error);
+    }
+
+    .bound__derivation {
+      max-width: 45ch;
+      color: var(--color-neutral);
+      font-family: var(--font-serif);
+      font-size: var(--text-md);
+    }
+
+    .atlas {
+      padding-block: var(--space-3xl) var(--space-2xl);
+    }
+
+    .atlas__header {
+      display: grid;
+      gap: var(--space-lg);
+      align-items: end;
+      padding-block-end: var(--space-xl);
+    }
+
+    .atlas__heading {
+      display: grid;
+      gap: var(--space-sm);
+    }
+
+    .atlas__heading p {
+      max-width: var(--measure);
+      color: var(--color-neutral);
+    }
+
+    .cta-outline {
+      display: inline-flex;
+      width: max-content;
+      min-height: 2.75rem;
+      align-items: center;
+      gap: var(--space-xs);
+      padding: var(--space-sm) var(--space-md);
+      border: var(--rule-hair) solid var(--color-ink);
+      color: var(--color-ink);
+      background: none;
+      font-family: var(--font-label);
+      font-size: var(--text-sm);
+      line-height: 1;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: transform var(--dur-micro) var(--ease-out);
+    }
+
+    .mode-switch {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      border-block: var(--rule-hair) solid var(--color-rule-2);
+    }
+
+    .mode-button {
+      position: relative;
+      min-width: 0;
+      min-height: 2.75rem;
+      padding: var(--space-sm) var(--space-xs);
+      border: 0;
+      border-inline-end: var(--rule-hair) solid var(--color-rule);
+      color: var(--color-neutral);
+      background: none;
+      cursor: pointer;
+      font-family: var(--font-label);
+      font-size: var(--text-xs);
+      line-height: 1;
+      white-space: nowrap;
+      transition: opacity var(--dur-micro) var(--ease-out), transform var(--dur-micro) var(--ease-out);
+    }
+
+    .mode-button:nth-child(even),
+    .mode-button:last-child {
+      border-inline-end: 0;
+    }
+
+    .mode-button:last-child {
+      grid-column: 1 / -1;
+      border-block-start: var(--rule-hair) solid var(--color-rule);
+    }
+
+    .mode-button::after {
+      position: absolute;
+      inset-inline: var(--space-xs);
+      inset-block-end: 0;
+      border-block-end: var(--rule-fine) solid var(--color-accent);
+      content: "";
+      transform: scaleX(0);
+      transform-origin: center;
+      transition: transform var(--dur-short) var(--ease-out);
+    }
+
+    .mode-button[aria-selected="true"] {
+      color: var(--color-accent);
+      font-weight: 600;
+    }
+
+    .mode-button[aria-selected="true"]::after {
+      transform: scaleX(1);
+    }
+
+    .mode-button:active,
+    .cta-outline:active {
+      transform: translateY(1px);
+    }
+
+    .mode-button:disabled,
+    .mode-button[aria-disabled="true"],
+    .cta-outline[aria-disabled="true"] {
+      cursor: not-allowed;
+      opacity: 0.45;
+      pointer-events: none;
+    }
+
+    .mode-button[data-state="loading"],
+    .cta-outline[data-state="loading"] {
+      cursor: wait;
+      opacity: 0.65;
+    }
+
+    .mode-button[data-state="error"],
+    .cta-outline[data-state="error"] {
+      outline: var(--rule-fine) solid var(--color-error);
+      outline-offset: calc(-1 * var(--rule-fine));
+    }
+
+    .mode-button[data-state="success"]::before,
+    .cta-outline[data-state="success"]::before {
+      margin-inline-end: var(--space-2xs);
+      color: var(--color-accent);
+      content: "✓";
+    }
+
+    .map-frame {
+      display: grid;
+      min-width: 0;
+      border-block-end: var(--rule-hair) solid var(--color-rule-2);
+    }
+
+    .graph-area {
+      display: grid;
+      min-width: 0;
+      min-height: 28rem;
+      gap: var(--space-sm);
+      padding: var(--space-md) 0;
+      background-color: var(--color-paper-2);
+      color: var(--color-ink);
+      place-items: center;
+    }
+
+    #graph {
+      display: block;
+      width: min(100%, 43rem);
+      height: auto;
+      max-height: 43rem;
+      overflow: visible;
+    }
+
+    .graph-inspector {
+      width: min(100%, 40rem);
+      min-height: 2.75rem;
+      padding: var(--space-sm) var(--space-md) 0;
+      border-block-start: var(--rule-hair) solid var(--color-rule);
+      color: var(--color-neutral);
+      font-family: var(--font-label);
+      font-size: var(--text-xs);
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    .graph-inspector strong {
+      color: var(--color-ink);
+      font-weight: 600;
+    }
+
+    .proof {
+      display: flex;
+      min-width: 0;
+      min-height: 29rem;
+      flex-direction: column;
+      gap: var(--space-lg);
+      padding: var(--space-xl) 0;
+      color: var(--color-ink);
+      background-color: var(--color-paper);
+    }
+
+    .proof.is-changing {
+      animation: proof-change var(--dur-short) var(--ease-out);
+    }
+
+    @keyframes proof-change {
+      from { opacity: 0.45; }
+      to { opacity: 1; }
+    }
+
+    .proof__index {
+      color: var(--color-accent);
+      font-family: var(--font-label);
+      font-size: var(--text-sm);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .proof__lead {
+      max-width: 48ch;
+      color: var(--color-ink-2);
+    }
+
+    .proof__facts {
+      display: grid;
+      gap: var(--space-sm);
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .proof__facts li {
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr);
+      gap: var(--space-sm);
+      color: var(--color-neutral);
+      font-size: var(--text-sm);
+    }
+
+    .proof__facts li::before {
+      color: var(--color-accent);
+      content: "—";
+    }
+
+    .proof__result {
+      display: grid;
+      gap: var(--space-xs);
+      margin-block-start: auto;
+      padding-block: var(--space-md);
+      border-block: var(--rule-hair) solid var(--color-rule-2);
+    }
+
+    .proof__result-label {
+      color: var(--color-neutral);
+      font-family: var(--font-label);
+      font-size: var(--text-xs);
+    }
+
+    .proof__formula {
+      color: var(--color-ink);
+      font-family: var(--font-serif);
+      font-size: var(--text-md);
+      line-height: 1.45;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm) var(--space-lg);
+      padding-block: var(--space-md);
+      color: var(--color-neutral);
+      font-family: var(--font-label);
+      font-size: var(--text-xs);
+    }
+
+    .legend__item {
+      display: inline-flex;
+      gap: var(--space-xs);
+      align-items: center;
+      white-space: nowrap;
+    }
+
+    .legend__mark {
+      display: inline-grid;
+      width: 0.75rem;
+      height: 0.75rem;
+      border: var(--rule-hair) solid var(--color-rule-2);
+      border-radius: 50%;
+      background-color: var(--color-paper);
+      place-items: center;
+    }
+
+    .legend__mark--b {
+      border-color: var(--color-accent);
+      background-color: var(--color-accent);
+    }
+
+    .legend__mark--hub {
+      border-color: var(--color-ink);
+      background-color: var(--color-ink);
+    }
+
+    .legend__mark--leaf {
+      border-color: var(--color-rule-2);
+      background-color: var(--color-paper-3);
+    }
+
+    .stat-strip {
+      display: grid;
+      border-block: var(--rule-hair) solid var(--color-rule-2);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .stat {
+      display: grid;
+      grid-template-columns: 5rem minmax(0, 1fr);
+      gap: var(--space-md);
+      align-items: center;
+      min-height: 6.5rem;
+      padding-block: var(--space-md);
+      border-block-end: var(--rule-hair) solid var(--color-rule);
+    }
+
+    .stat:last-child {
+      border-block-end: 0;
+    }
+
+    .stat__value {
+      font-family: var(--font-display);
+      font-size: var(--text-2xl);
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .stat__copy {
+      display: grid;
+      gap: var(--space-2xs);
+      min-width: 0;
+    }
+
+    .stat__symbol {
+      font-family: var(--font-serif);
+      font-size: var(--text-md);
+    }
+
+    .stat__note {
+      color: var(--color-neutral);
+      font-size: var(--text-sm);
+    }
+
+    .stat--bound .stat__value,
+    .stat--bound .stat__symbol {
+      color: var(--color-error);
+    }
+
+    .colophon {
+      display: grid;
+      gap: var(--space-lg);
+      padding-block: var(--space-2xl) max(var(--space-2xl), env(safe-area-inset-bottom));
+      color: var(--color-neutral);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      line-height: 1.65;
+    }
+
+    .colophon strong {
+      color: var(--color-ink);
+      font-weight: 600;
+    }
+
+    .colophon__links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-sm) var(--space-lg);
+      align-items: center;
+    }
+
+    .colophon__links a {
+      display: inline-flex;
+      min-height: 2.75rem;
+      align-items: center;
+      color: var(--color-ink);
+      line-height: 1;
+      white-space: nowrap;
+    }
+
+    /* Hallmark · component: graph atlas · genre: editorial · theme: Almanac
+     * states: default · hover · focus · active · disabled · loading · error · success
+     * proof modes: construction · bipartite · forest · obstructions · residue
+     * contrast: pass
+     */
+    /* SVG atlas */
+    .region {
+      fill: var(--color-paper);
+      stroke: var(--color-rule);
+      stroke-dasharray: 5 7;
+      stroke-width: var(--rule-hair);
+    }
+
+    .region-label,
+    .column-label,
+    .annotation,
+    .degree-label {
+      font-family: var(--font-label);
+      pointer-events: none;
+    }
+
+    .region-label {
+      fill: var(--color-neutral);
+      font-size: var(--text-graph-sm);
+      letter-spacing: 0.08em;
+    }
+
+    .column-label {
+      fill: var(--color-ink);
+      font-size: var(--text-xs);
+      font-weight: 600;
+      letter-spacing: 0.05em;
+    }
+
+    .edge {
+      fill: none;
+      transition: opacity var(--dur-short) var(--ease-out);
+    }
+
+    .edge__line,
+    .edge__casing {
+      fill: none;
+      stroke-linecap: round;
+      vector-effect: non-scaling-stroke;
+    }
+
+    .edge__casing {
+      stroke: var(--color-paper);
+      stroke-width: calc(var(--rule-graph) + var(--rule-heavy));
+    }
+
+    .edge.core .edge__line {
+      stroke: var(--color-accent);
+      stroke-width: var(--rule-graph);
+      opacity: 0.52;
+    }
+
+    .edge.hub-edge .edge__line {
+      stroke: var(--color-rule-2);
+      stroke-width: var(--rule-hair);
+      stroke-dasharray: 3 5;
+      opacity: 0.42;
+    }
+
+    .node {
+      cursor: pointer;
+      transition: opacity var(--dur-short) var(--ease-out);
+    }
+
+    .node circle.hit {
+      fill: transparent;
+      pointer-events: all;
+    }
+
+    .node circle.focus-ring {
+      fill: none;
+      stroke: var(--color-focus);
+      stroke-width: var(--rule-fine);
+      opacity: 0;
+      pointer-events: none;
+      vector-effect: non-scaling-stroke;
+    }
+
+    .node circle.main {
+      stroke-width: var(--rule-fine);
+      transition: transform var(--dur-micro) var(--ease-out);
+      transform-box: fill-box;
+      transform-origin: center;
+      vector-effect: non-scaling-stroke;
+    }
+
+    .node text.label {
+      font-family: var(--font-label);
+      font-size: var(--text-xs);
+      font-weight: 600;
+      pointer-events: none;
+      text-anchor: middle;
+    }
+
+    .node.a circle.main {
+      fill: var(--color-paper);
+      stroke: var(--color-ink);
+    }
+
+    .node.a text.label {
+      fill: var(--color-ink);
+    }
+
+    .node.b circle.main {
+      fill: var(--color-accent);
+      stroke: var(--color-accent);
+    }
+
+    .node.b text.label {
+      fill: var(--color-accent-ink);
+    }
+
+    .node.hub circle.main {
+      fill: var(--color-ink);
+      stroke: var(--color-ink);
+    }
+
+    .node.hub text.label {
+      fill: var(--color-paper);
+      font-size: var(--text-base);
+    }
+
+    .node.leaf circle.main {
+      fill: var(--color-paper-3);
+      stroke: var(--color-rule-2);
+    }
+
+    .node.leaf text.label {
+      fill: var(--color-ink);
+      font-size: var(--text-graph-xs);
+    }
+
+    .node.is-muted,
+    .edge.is-muted {
+      opacity: 0.08;
+    }
+
+    .node.is-hidden,
+    .edge.is-hidden {
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .node.is-active circle.main {
+      stroke: var(--color-accent);
+      stroke-width: var(--rule-heavy);
+    }
+
+    .edge.is-active .edge__line {
+      stroke: var(--color-accent);
+      stroke-width: calc(var(--rule-fine) + var(--rule-hair));
+      stroke-dasharray: none;
+      opacity: 1;
+    }
+
+    .edge.is-danger .edge__line {
+      stroke: var(--color-error);
+      stroke-width: var(--rule-heavy);
+      stroke-dasharray: none;
+      opacity: 1;
+    }
+
+    .node.is-danger circle.main {
+      stroke: var(--color-error);
+      stroke-width: var(--rule-heavy);
+    }
+
+    .node.is-inspection-muted,
+    .edge.is-inspection-muted {
+      opacity: 0.07;
+    }
+
+    .node.is-inspected circle.focus-ring,
+    .node:focus-visible circle.focus-ring {
+      opacity: 1;
+    }
+
+    .node.is-related circle.main {
+      stroke: var(--color-accent);
+      stroke-width: var(--rule-fine);
+    }
+
+    .edge.is-inspected .edge__line {
+      stroke: var(--color-accent);
+      stroke-width: var(--rule-heavy);
+      stroke-dasharray: none;
+      opacity: 1;
+    }
+
+    .node:active circle.main {
+      transform: scale(0.94);
+    }
+
+    .node[aria-disabled="true"] {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+
+    .node[data-state="loading"] circle.main {
+      stroke-dasharray: 3 3;
+    }
+
+    .node[data-state="error"] circle.main {
+      stroke: var(--color-error);
+      stroke-width: var(--rule-heavy);
+    }
+
+    .node[data-state="success"] circle.main {
+      stroke: var(--color-accent);
+      stroke-width: var(--rule-heavy);
+    }
+
+    .annotation-bg {
+      fill: var(--color-paper);
+      stroke: var(--color-error);
+    }
+
+    .annotation {
+      fill: var(--color-error);
+      font-size: var(--text-graph-sm);
+      font-weight: 600;
+    }
+
+    .degree-label {
+      fill: var(--color-neutral);
+      font-size: var(--text-graph-xs);
+      font-weight: 600;
+      opacity: 0;
+      text-anchor: middle;
+      transition: opacity var(--dur-short) var(--ease-out);
+    }
+
+    #graph.show-degrees .degree-label {
+      opacity: 1;
+    }
+
+    .neighborhood-label {
+      fill: var(--color-neutral);
+      font-family: var(--font-label);
+      font-size: var(--text-graph-xs);
+      font-variant-numeric: tabular-nums;
+      pointer-events: none;
+      text-anchor: start;
+    }
+
+    .hub-callout {
+      fill: var(--color-ink);
+      font-family: var(--font-label);
+      font-size: var(--text-graph-sm);
+      font-weight: 600;
+      pointer-events: none;
+    }
+
+    .hub-callout-rule {
+      fill: none;
+      stroke: var(--color-rule-2);
+      stroke-width: var(--rule-hair);
+      vector-effect: non-scaling-stroke;
+    }
+
+    .construction-guides,
+    .forest-guide,
+    .bipartite-note {
+      transition: opacity var(--dur-short) var(--ease-out);
+    }
+
+    .forest-guide,
+    .bipartite-note {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    #graph.mode-forest .construction-guides {
+      opacity: 0;
+    }
+
+    #graph.mode-forest .forest-guide {
+      opacity: 1;
+    }
+
+    #graph.mode-bipartite .hub-callout,
+    #graph.mode-bipartite .hub-callout-rule,
+    #graph.mode-forest .hub-callout,
+    #graph.mode-forest .hub-callout-rule {
+      opacity: 0;
+    }
+
+    #graph.mode-bipartite .bipartite-note {
+      opacity: 1;
+    }
+
+    .forest-guide__orbit {
+      fill: var(--color-paper);
+      stroke: var(--color-rule);
+      stroke-dasharray: 5 7;
+      stroke-width: var(--rule-hair);
+      vector-effect: non-scaling-stroke;
+    }
+
+    .forest-guide__label,
+    .bipartite-note {
+      fill: var(--color-neutral);
+      font-family: var(--font-label);
+      font-size: var(--text-graph-sm);
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-anchor: middle;
+    }
+
+    .legend__line {
+      width: 1.5rem;
+      height: 0;
+      border-block-start: var(--rule-fine) solid var(--color-accent);
+    }
+
+    .legend__line--hub {
+      border-block-start-color: var(--color-rule-2);
+      border-block-start-style: dashed;
+      border-block-start-width: var(--rule-hair);
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .cta-outline:hover,
+      .mode-button:hover {
+        transform: translateY(-1px);
+      }
+
+      .mobile-nav__mark:hover,
+      .mobile-index summary:hover,
+      .rail__mark:hover,
+      .rail__index a:hover,
+      .mobile-index__sheet a:hover,
+      .colophon__links a:hover {
+        color: var(--color-accent);
+      }
+
+      .node:hover circle.focus-ring {
+        opacity: 0.72;
+      }
+    }
+
+    @media (min-width: 40rem) {
+      .mode-switch {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+      }
+
+      .mode-button,
+      .mode-button:nth-child(even),
+      .mode-button:last-child {
+        grid-column: auto;
+        border-block-start: 0;
+        border-inline-end: var(--rule-hair) solid var(--color-rule);
+      }
+
+      .mode-button:last-child {
+        border-inline-end: 0;
+      }
+
+      .stat-strip {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .stat {
+        grid-template-columns: 5rem minmax(0, 1fr);
+        padding: var(--space-lg);
+        border-inline-end: var(--rule-hair) solid var(--color-rule);
+      }
+
+      .stat:nth-child(2) {
+        border-inline-end: 0;
+      }
+
+      .stat:nth-child(3) {
+        border-block-end: 0;
+      }
+    }
+
+    @media (min-width: 60rem) {
+      body {
+        padding-inline-start: var(--rail-size);
+      }
+
+      .orientation {
+        grid-template-columns: minmax(0, 1.55fr) minmax(17rem, 0.75fr);
+        align-items: end;
+      }
+
+      .bound {
+        padding-block-start: 0;
+        padding-inline-start: var(--space-xl);
+        border-block-start: 0;
+        border-inline-start: var(--rule-hair) solid var(--color-rule-2);
+      }
+
+      .atlas__header {
+        grid-template-columns: minmax(0, 1fr) auto;
+      }
+
+      .mobile-nav {
+        display: none;
+      }
+
+      .rail {
+        position: fixed;
+        inset-block: 0;
+        inset-inline-start: 0;
+        z-index: var(--z-sticky);
+        display: flex;
+        width: var(--rail-size);
+        flex-direction: column;
+        align-items: center;
+        border-inline-end: var(--rule-hair) solid var(--color-rule-2);
+        background-color: var(--color-paper);
+      }
+
+      .rail__mark {
+        display: grid;
+        width: 100%;
+        min-height: var(--rail-size);
+        border-block-end: var(--rule-hair) solid var(--color-rule-2);
+        font-family: var(--font-mono);
+        font-weight: 600;
+        line-height: 1;
+        text-decoration: none;
+        place-items: center;
+      }
+
+      .rail__wordmark {
+        display: grid;
+        flex: 1;
+        color: var(--color-neutral);
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
+        letter-spacing: 0.08em;
+        writing-mode: vertical-rl;
+        place-items: center;
+        transform: rotate(180deg);
+      }
+
+      .rail__index {
+        display: grid;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        border-block-start: var(--rule-hair) solid var(--color-rule-2);
+        list-style: none;
+      }
+
+      .rail__index a {
+        display: grid;
+        min-height: 3rem;
+        border-block-end: var(--rule-hair) solid var(--color-rule);
+        color: var(--color-neutral);
+        font-family: var(--font-mono);
+        font-size: var(--text-xs);
+        line-height: 1;
+        text-decoration: none;
+        place-items: center;
+      }
+
+      .rail__index a[aria-current="location"] {
+        color: var(--color-accent);
+        font-weight: 600;
+      }
+
+      .orientation {
+        padding-block: var(--space-3xl) var(--space-4xl);
+      }
+
+      .map-frame {
+        grid-template-columns: minmax(0, 1.7fr) minmax(20rem, 0.72fr);
+      }
+
+      .graph-area {
+        min-height: 43rem;
+        padding: var(--space-lg);
+        border-inline-end: var(--rule-hair) solid var(--color-rule-2);
+      }
+
+      .proof {
+        min-height: 43rem;
+        padding: var(--space-2xl);
+      }
+
+      .stat-strip {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+      }
+
+      .stat,
+      .stat:nth-child(2),
+      .stat:nth-child(3) {
+        grid-template-columns: 1fr;
+        align-content: center;
+        border-block-end: 0;
+        border-inline-end: var(--rule-hair) solid var(--color-rule);
+      }
+
+      .stat:last-child {
+        border-inline-end: 0;
+      }
+
+      .colophon {
+        grid-template-columns: minmax(0, 1.6fr) minmax(18rem, 0.7fr);
+        align-items: end;
+      }
+
+      .colophon__links {
+        justify-content: flex-end;
+      }
+    }
+
+    @media (min-width: 90rem) {
+      .page {
+        padding-inline: var(--space-2xl);
+      }
+    }
+
+    @media (pointer: coarse) {
+      .mode-button,
+      .cta-outline,
+      .mobile-index summary,
+      .mobile-index__sheet a,
+      .rail__index a {
+        min-height: 2.75rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: var(--dur-micro) !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: var(--dur-micro) !important;
+      }
+
+      .node,
+      .edge,
+      .degree-label,
+      .mode-button,
+      .mode-button::after,
+      .cta-outline {
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#map">Skip to graph</a>
+
+  <nav class="rail" aria-label="Page index">
+    <a class="rail__mark" href="#statement" aria-label="Conjecture 59">59</a>
+    <p class="rail__wordmark">WOWII counterexample atlas</p>
+    <ol class="rail__index">
+      <li><a href="#statement" data-section-link="statement" aria-label="Statement">01</a></li>
+      <li><a href="#map" data-section-link="map" aria-label="Interactive graph">02</a></li>
+      <li><a href="#invariants" data-section-link="invariants" aria-label="Invariants">03</a></li>
+    </ol>
+  </nav>
+
+  <header class="mobile-nav">
+    <a class="mobile-nav__mark" href="#statement">C59 / ATLAS</a>
+    <details class="mobile-index">
+      <summary>Index</summary>
+      <nav class="mobile-index__sheet" aria-label="Mobile page index">
+        <a href="#statement">Statement</a>
+        <a href="#map">Graph</a>
+        <a href="#invariants">Invariants</a>
+      </nav>
+    </details>
+  </header>
+
+  <main class="page" id="content" tabindex="-1">
+    <header class="orientation" id="statement">
+      <div class="orientation__copy">
+        <p class="orientation__context">Written on the Wall II · Conjecture 59</p>
+        <h1>18 vertices. One failed bound.</h1>
+        <p class="orientation__lede">
+          The graph below is connected, has 36 edges, and disproves
+          <strong>f(G) ≥ ⌈√(residue(G) · b(G))⌉</strong>.
+          Each view isolates one exact part of the argument.
+        </p>
+      </div>
+      <aside class="bound" aria-label="Failed conjectured inequality">
+        <p class="bound__label">The conjecture requires</p>
+        <p class="bound__formula">
+          <span>13</span>
+          <span class="bound__relation">≥</span>
+          <span>14</span>
+        </p>
+        <p class="bound__derivation">f(G) = 13, while ⌈√(10 · 17)⌉ = 14.</p>
+      </aside>
+    </header>
+
+    <section class="atlas" id="map" aria-labelledby="atlas-title">
+      <header class="atlas__header">
+        <div class="atlas__heading">
+          <h2 id="atlas-title">Counterexample atlas</h2>
+          <p>Choose a proof layer. Each view preserves adjacency and redraws the witness when clarity requires it.</p>
+        </div>
+        <a class="cta-outline" href="WOWII_Conjecture_59_Counterexample.pdf">Read full proof <span aria-hidden="true">→</span></a>
+      </header>
+
+      <div class="mode-switch" role="tablist" aria-label="Proof layers">
+        <button class="mode-button" type="button" role="tab" data-mode="construction" aria-selected="true" aria-controls="proof-panel" tabindex="0">Construction</button>
+        <button class="mode-button" type="button" role="tab" data-mode="bipartite" aria-selected="false" aria-controls="proof-panel" tabindex="-1">Bipartite 17</button>
+        <button class="mode-button" type="button" role="tab" data-mode="forest" aria-selected="false" aria-controls="proof-panel" tabindex="-1">Forest 13</button>
+        <button class="mode-button" type="button" role="tab" data-mode="obstructions" aria-selected="false" aria-controls="proof-panel" tabindex="-1">Why not 14?</button>
+        <button class="mode-button" type="button" role="tab" data-mode="residue" aria-selected="false" aria-controls="proof-panel" tabindex="-1">Residue 10</button>
+      </div>
+
+      <div class="map-frame">
+        <div class="graph-area">
+          <svg id="graph" viewBox="0 0 650 680" role="group" aria-labelledby="graph-title graph-description">
+            <title id="graph-title">The 18-vertex counterexample graph</title>
+            <desc id="graph-description">
+              A ten-vertex nested bipartite core, one universal hub, and seven pendant leaves.
+              The proof-layer controls highlight induced witnesses and cycle obstructions.
+            </desc>
+
+            <g class="construction-guides" aria-hidden="true">
+              <rect class="region" x="77" y="45" width="496" height="414"></rect>
+              <text class="region-label" x="95" y="72">NESTED BIPARTITE CORE H · 10 VERTICES · 19 EDGES</text>
+              <text class="column-label" x="137" y="103">A · |A| = 5</text>
+              <text class="column-label" x="450" y="103">B · |B| = 5</text>
+              <text class="neighborhood-label" x="527" y="141">deg<tspan baseline-shift="sub">H</tspan> = 2</text>
+              <text class="neighborhood-label" x="527" y="212">deg<tspan baseline-shift="sub">H</tspan> = 3</text>
+              <text class="neighborhood-label" x="527" y="283">deg<tspan baseline-shift="sub">H</tspan> = 4</text>
+              <text class="neighborhood-label" x="527" y="354">deg<tspan baseline-shift="sub">H</tspan> = 5</text>
+              <text class="neighborhood-label" x="527" y="425">deg<tspan baseline-shift="sub">H</tspan> = 5</text>
+
+              <rect class="region" x="41" y="587" width="568" height="75"></rect>
+              <text class="region-label" x="58" y="610">PENDANT SET L · 7 VERTICES · DEGREE 1</text>
+            </g>
+
+            <g class="forest-guide" aria-hidden="true">
+              <ellipse class="forest-guide__orbit" cx="325" cy="345" rx="245" ry="245"></ellipse>
+              <text class="forest-guide__label" x="325" y="55">INDUCED FOREST · K₁,₁₂ · 13 VERTICES · 12 EDGES</text>
+            </g>
+            <text class="bipartite-note" x="325" y="530" aria-hidden="true">h DELETED · 7 ISOLATED LEAVES REMAIN</text>
+
+            <g id="hub-edges" aria-hidden="true"></g>
+            <g id="core-edges" aria-hidden="true"></g>
+            <path class="hub-callout-rule" d="M 354 514 L 386 494 L 470 494"></path>
+            <text class="hub-callout" x="390" y="488">h is universal · deg<tspan baseline-shift="sub">G</tspan>(h) = 17</text>
+            <g id="nodes"></g>
+            <g id="annotations" aria-hidden="true"></g>
+          </svg>
+          <p class="graph-inspector" id="graph-inspector" aria-live="polite">
+            Inspect a vertex: hover, focus, or tap a node. Tap again or press Escape to clear.
+          </p>
+        </div>
+
+        <aside class="proof" id="proof-panel" role="tabpanel" aria-live="polite">
+          <p class="proof__index" id="mode-index">01 / 05</p>
+          <h3 id="mode-title">Core, hub, leaves</h3>
+          <p class="proof__lead" id="mode-lead">
+            Begin with a nested bipartite core on A ∪ B. Add the universal hub h,
+            then attach seven leaves to h.
+          </p>
+          <ul class="proof__facts" id="mode-facts">
+            <li>The core contributes 19 edges.</li>
+            <li>The hub meets all other 17 vertices.</li>
+            <li>Total: 18 vertices, 36 edges, connected.</li>
+          </ul>
+          <div class="proof__result">
+            <p class="proof__result-label" id="mode-label">Construction rule</p>
+            <p class="proof__formula" id="mode-formula">
+              N(b<sub>j</sub>) = {a<sub>0</sub>, …, a<sub>j+1</sub>} for j = 0, 1, 2;
+              N(b<sub>3</sub>) = N(b<sub>4</sub>) = A.
+            </p>
+          </div>
+        </aside>
+      </div>
+
+      <div class="legend" aria-label="Vertex notation">
+        <span class="legend__item"><i class="legend__mark" aria-hidden="true"></i>A: open nodes</span>
+        <span class="legend__item"><i class="legend__mark legend__mark--b" aria-hidden="true"></i>B: blue nodes</span>
+        <span class="legend__item"><i class="legend__mark legend__mark--hub" aria-hidden="true"></i>h: universal hub</span>
+        <span class="legend__item"><i class="legend__mark legend__mark--leaf" aria-hidden="true"></i>L: pendant leaves</span>
+        <span class="legend__item"><i class="legend__line" aria-hidden="true"></i>19 core edges</span>
+        <span class="legend__item"><i class="legend__line legend__line--hub" aria-hidden="true"></i>17 hub edges</span>
+        <span class="legend__item">Keyboard: 1–5 changes layer</span>
+      </div>
+    </section>
+
+    <section class="stat-strip" id="invariants" aria-label="Exact graph invariants">
+      <article class="stat">
+        <strong class="stat__value">10</strong>
+        <div class="stat__copy">
+          <span class="stat__symbol">residue(G)</span>
+          <span class="stat__note">Havel–Hakimi ends at [0<sup>10</sup>].</span>
+        </div>
+      </article>
+      <article class="stat">
+        <strong class="stat__value">17</strong>
+        <div class="stat__copy">
+          <span class="stat__symbol">b(G)</span>
+          <span class="stat__note">Delete the hub; the remainder is bipartite.</span>
+        </div>
+      </article>
+      <article class="stat">
+        <strong class="stat__value">13</strong>
+        <div class="stat__copy">
+          <span class="stat__symbol">f(G)</span>
+          <span class="stat__note">A 13-vertex star exists; every 14-set cycles.</span>
+        </div>
+      </article>
+      <article class="stat stat--bound">
+        <strong class="stat__value">14</strong>
+        <div class="stat__copy">
+          <span class="stat__symbol">⌈√(10 · 17)⌉</span>
+          <span class="stat__note">The conjectured lower bound exceeds f(G).</span>
+        </div>
+      </article>
+    </section>
+
+    <footer class="colophon" id="sources">
+      <p>
+        <strong>WOWII CONJECTURE 59 · COUNTEREXAMPLE ATLAS.</strong>
+        The standard-library verifier enumerates all 262,144 induced vertex subsets to certify
+        b(G) = 17 and f(G) = 13, and computes residue(G) = 10 exactly. Prepared July 23, 2026.
+      </p>
+      <nav class="colophon__links" aria-label="Project files">
+        <a href="WOWII_Conjecture_59_Counterexample.pdf">Proof note</a>
+        <a href="WOWII_Conjecture_59_Counterexample.tex">LaTeX source</a>
+        <a href="verify_counterexample.py">Exact verifier</a>
+        <a href="README.md">Repository guide</a>
+      </nav>
+    </footer>
+  </main>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const SVG_NS = "http://www.w3.org/2000/svg";
+      const basePositions = {
+        a0: [157, 137], a1: [157, 208], a2: [157, 279], a3: [157, 350], a4: [157, 421],
+        b0: [493, 137], b1: [493, 208], b2: [493, 279], b3: [493, 350], b4: [493, 421],
+        h: [325, 525],
+        l1: [73, 632], l2: [157, 632], l3: [241, 632], l4: [325, 632],
+        l5: [409, 632], l6: [493, 632], l7: [577, 632]
+      };
+      const positions = Object.fromEntries(
+        Object.entries(basePositions).map(([id, point]) => [id, [...point]])
+      );
+      const forestOrder = ["b0", "b1", "b2", "b3", "b4", "l1", "l2", "l3", "l4", "l5", "l6", "l7"];
+      const forestPositions = {h: [325, 345]};
+      forestOrder.forEach((id, index) => {
+        const angle = (-90 + index * 30) * Math.PI / 180;
+        forestPositions[id] = [
+          325 + Math.cos(angle) * 225,
+          345 + Math.sin(angle) * 225
+        ];
+      });
+
+      const coreEdges = [
+        ["a0", "b0"], ["a1", "b0"],
+        ["a0", "b1"], ["a1", "b1"], ["a2", "b1"],
+        ["a0", "b2"], ["a1", "b2"], ["a2", "b2"], ["a3", "b2"],
+        ["a0", "b3"], ["a1", "b3"], ["a2", "b3"], ["a3", "b3"], ["a4", "b3"],
+        ["a0", "b4"], ["a1", "b4"], ["a2", "b4"], ["a3", "b4"], ["a4", "b4"]
+      ];
+
+      const allExceptHub = Object.keys(positions).filter(id => id !== "h");
+      const hubEdges = allExceptHub.map(id => ["h", id]);
+      const allEdges = [...hubEdges, ...coreEdges];
+      const degree = {
+        a0: 6, a1: 6, a2: 5, a3: 4, a4: 3,
+        b0: 3, b1: 4, b2: 5, b3: 6, b4: 6, h: 17
+      };
+      for (let i = 1; i <= 7; i += 1) degree[`l${i}`] = 1;
+
+      const graph = document.getElementById("graph");
+      const nodeLayer = document.getElementById("nodes");
+      const coreLayer = document.getElementById("core-edges");
+      const hubLayer = document.getElementById("hub-edges");
+      const annotationLayer = document.getElementById("annotations");
+      const proofPanel = document.getElementById("proof-panel");
+      const graphInspector = document.getElementById("graph-inspector");
+      const modeButtons = [...document.querySelectorAll(".mode-button")];
+
+      const edgeKey = (u, v) => [u, v].sort().join("--");
+      const createSvg = (tag, attrs = {}) => {
+        const element = document.createElementNS(SVG_NS, tag);
+        for (const [key, value] of Object.entries(attrs)) element.setAttribute(key, value);
+        return element;
+      };
+
+      const edgeElements = new Map();
+      const radiusFor = id => id === "h" ? 27 : id.startsWith("l") ? 17 : 22;
+
+      function boundaryPoint(from, to, radius) {
+        const dx = to[0] - from[0];
+        const dy = to[1] - from[1];
+        const distance = Math.hypot(dx, dy);
+        return [
+          from[0] + (dx / distance) * radius,
+          from[1] + (dy / distance) * radius
+        ];
+      }
+
+      function edgePath(u, v, type) {
+        if (type === "core") {
+          const a = u.startsWith("a") ? u : v;
+          const b = u.startsWith("b") ? u : v;
+          const [ax, ay] = positions[a];
+          const [bx, by] = positions[b];
+          const aPort = (Number(b.slice(1)) - 2) * 4;
+          const bPort = (Number(a.slice(1)) - 2) * 4;
+          const aInset = Math.sqrt((22 * 22) - (aPort * aPort));
+          const bInset = Math.sqrt((22 * 22) - (bPort * bPort));
+          return `M ${ax + aInset} ${ay + aPort} L ${bx - bInset} ${by + bPort}`;
+        }
+
+        const from = positions[u];
+        const to = positions[v];
+        const start = boundaryPoint(from, to, radiusFor(u));
+        const end = boundaryPoint(to, from, radiusFor(v));
+        return `M ${start[0]} ${start[1]} L ${end[0]} ${end[1]}`;
+      }
+
+      function drawEdge([u, v], type) {
+        const group = createSvg("g", {
+          class: `edge ${type}`,
+          "data-u": u,
+          "data-v": v
+        });
+        const d = edgePath(u, v, type);
+        if (type === "core") group.appendChild(createSvg("path", { class: "edge__casing", d }));
+        group.appendChild(createSvg("path", { class: "edge__line", d }));
+        edgeElements.set(edgeKey(u, v), group);
+        (type === "core" ? coreLayer : hubLayer).appendChild(group);
+      }
+
+      hubEdges.forEach(edge => drawEdge(edge, "hub-edge"));
+      coreEdges.forEach(edge => drawEdge(edge, "core"));
+
+      const nodeElements = new Map();
+      for (const [id, [x, y]] of Object.entries(positions)) {
+        const type = id.startsWith("a") ? "a" : id.startsWith("b") ? "b" : id === "h" ? "hub" : "leaf";
+        const radius = type === "hub" ? 27 : type === "leaf" ? 17 : 22;
+        const group = createSvg("g", {
+          class: `node ${type}`,
+          "data-id": id,
+          transform: `translate(${x} ${y})`,
+          role: "button",
+          tabindex: "0",
+          "aria-pressed": "false",
+          "aria-describedby": "graph-inspector",
+          "aria-label": `${id === "h" ? "universal hub h" : id}, degree ${degree[id]}`
+        });
+        const title = createSvg("title");
+        title.textContent = `${id === "h" ? "universal hub h" : id}, degree ${degree[id]}`;
+        const hit = createSvg("circle", { class: "hit", r: Math.max(radius, 22) });
+        const focusRing = createSvg("circle", { class: "focus-ring", r: radius + 6 });
+        const circle = createSvg("circle", { class: "main", r: radius });
+        const label = createSvg("text", { class: "label", dy: "0.36em" });
+        label.textContent = id.startsWith("l") ? `ℓ${id.slice(1)}` : id;
+        const degreeText = createSvg("text", { class: "degree-label", y: radius + 15 });
+        degreeText.textContent = `deg ${degree[id]}`;
+        group.append(title, hit, focusRing, circle, label, degreeText);
+        nodeLayer.appendChild(group);
+        nodeElements.set(id, group);
+      }
+
+      const modes = {
+        construction: {
+          index: "01 / 05",
+          title: "Core, hub, leaves",
+          lead: "Begin with a nested bipartite core on A ∪ B. Add the universal hub h, then attach seven leaves to h.",
+          facts: [
+            "The core contributes 19 edges.",
+            "The hub meets all other 17 vertices.",
+            "Total: 18 vertices, 36 edges, connected."
+          ],
+          label: "Construction rule",
+          formula: "N(b<sub>j</sub>) = {a<sub>0</sub>, …, a<sub>j+1</sub>} for j = 0, 1, 2; N(b<sub>3</sub>) = N(b<sub>4</sub>) = A."
+        },
+        bipartite: {
+          index: "02 / 05",
+          title: "Delete h; retain 17",
+          lead: "Removing the hub leaves the A–B core bipartite and turns all seven leaves into isolated vertices.",
+          facts: [
+            "The highlighted 17 vertices induce a bipartite graph.",
+            "The full graph contains the triangle h–a₀–b₀–h.",
+            "Thus 17 is attainable, while 18 is impossible."
+          ],
+          label: "Exact bipartite number",
+          formula: "G − h is bipartite ⇒ b(G) ≥ 17.<br>G contains a triangle ⇒ b(G) &lt; 18.<br><strong>b(G) = 17.</strong>",
+          activeNodes: allExceptHub,
+          hiddenNodes: ["h"],
+          activeEdges: coreEdges.map(edge => edgeKey(...edge)),
+          hiddenEdgeTest: ([u, v]) => u === "h" || v === "h"
+        },
+        forest: {
+          index: "03 / 05",
+          title: "A 13-vertex star",
+          lead: "Keep B, the hub, and every leaf. Their induced graph is exactly K₁,₁₂, hence a forest.",
+          facts: [
+            "Five vertices in B + one hub + seven leaves = 13.",
+            "There are no edges within B or within L.",
+            "Therefore f(G) ≥ 13."
+          ],
+          label: "Forest witness",
+          formula: "G[B ∪ {h} ∪ L] ≅ K<sub>1,12</sub>.<br><strong>Witness order: 5 + 1 + 7 = 13.</strong>",
+          activeNodes: ["b0", "b1", "b2", "b3", "b4", "h", "l1", "l2", "l3", "l4", "l5", "l6", "l7"],
+          hiddenNodes: ["a0", "a1", "a2", "a3", "a4"],
+          activeEdges: hubEdges.filter(([, v]) => v.startsWith("b") || v.startsWith("l")).map(edge => edgeKey(...edge)),
+          hiddenEdgeTest: ([u, v]) => u.startsWith("a") || v.startsWith("a"),
+          layout: "forest"
+        },
+        obstructions: {
+          index: "04 / 05",
+          title: "Every 14-set cycles",
+          lead: "Any induced subgraph on 14 vertices falls into one of two cases, and each case forces a cycle.",
+          facts: [
+            "With h: six core vertices contain an edge; h closes a triangle.",
+            "Without h: seven core vertices contain a 4-cycle.",
+            "The red cycles mark the two obstruction types."
+          ],
+          label: "Two-case upper bound",
+          formula: "h ∈ S ⇒ triangle &nbsp;·&nbsp; h ∉ S ⇒ C<sub>4</sub>.<br>No |S| = 14 induces a forest ⇒ <strong>f(G) ≤ 13.</strong>",
+          dangerNodes: ["h", "a0", "a1", "b0", "b3", "b4"],
+          dangerEdges: [
+            edgeKey("h", "a0"), edgeKey("h", "b0"), edgeKey("a0", "b0"),
+            edgeKey("a0", "b3"), edgeKey("a1", "b3"), edgeKey("a1", "b4"), edgeKey("a0", "b4")
+          ],
+          mutedEdgeTest: ([u, v]) => ![
+            edgeKey("h", "a0"), edgeKey("h", "b0"), edgeKey("a0", "b0"),
+            edgeKey("a0", "b3"), edgeKey("a1", "b3"), edgeKey("a1", "b4"), edgeKey("a0", "b4")
+          ].includes(edgeKey(u, v)),
+          annotations: [
+            { x: 257, y: 178, w: 112, text: "TRIANGLE TYPE" },
+            { x: 259, y: 318, w: 108, text: "4-CYCLE TYPE" }
+          ]
+        },
+        residue: {
+          index: "05 / 05",
+          title: "Ten zeros remain",
+          lead: "Havel–Hakimi repeatedly removes the largest degree and subtracts one from the next entries.",
+          facts: [
+            "Initial degrees: [17, 6⁴, 5², 4², 3², 1⁷].",
+            "The hub accounts for the unique degree 17.",
+            "The reduction terminates at [0¹⁰]."
+          ],
+          label: "Compressed reduction",
+          formula: "[17, 6⁴, 5², 4², 3², 1⁷]<br>→ [5⁴, 4², 3², 2², 0⁷] → ··· → <strong>[0¹⁰]</strong>",
+          showDegrees: true
+        }
+      };
+
+      function addAnnotation({x, y, w, text}) {
+        const group = createSvg("g");
+        group.appendChild(createSvg("rect", {
+          class: "annotation-bg",
+          x, y, width: w, height: 27
+        }));
+        const label = createSvg("text", {
+          class: "annotation",
+          x: x + w / 2,
+          y: y + 18,
+          "text-anchor": "middle"
+        });
+        label.textContent = text;
+        group.appendChild(label);
+        annotationLayer.appendChild(group);
+      }
+
+      let currentModeName = "construction";
+      let pinnedNodeId = null;
+      let pointerInspectReadyAt = 0;
+
+      const displayId = id => {
+        const subscript = {
+          "0": "\u2080", "1": "\u2081", "2": "\u2082", "3": "\u2083",
+          "4": "\u2084", "5": "\u2085", "6": "\u2086", "7": "\u2087"
+        };
+        if (id === "h") return "h";
+        const prefix = id.startsWith("l") ? "\u2113" : id[0];
+        return `${prefix}${subscript[id.slice(1)]}`;
+      };
+
+      function updateEdgeGeometry() {
+        for (const edge of edgeElements.values()) {
+          const type = edge.classList.contains("core") ? "core" : "hub-edge";
+          const d = edgePath(edge.dataset.u, edge.dataset.v, type);
+          edge.querySelectorAll("path").forEach(path => path.setAttribute("d", d));
+        }
+      }
+
+      function applyLayout(modeName) {
+        const target = modes[modeName].layout === "forest" ? forestPositions : basePositions;
+        for (const id of Object.keys(positions)) {
+          const point = target[id] || basePositions[id];
+          positions[id] = [...point];
+          nodeElements.get(id).setAttribute("transform", `translate(${point[0]} ${point[1]})`);
+        }
+        updateEdgeGeometry();
+        graph.classList.remove("mode-construction", "mode-bipartite", "mode-forest", "mode-obstructions", "mode-residue");
+        graph.classList.add(`mode-${modeName}`);
+      }
+
+      function resetInspectionStyles() {
+        for (const node of nodeElements.values()) {
+          node.classList.remove("is-inspected", "is-related", "is-inspection-muted");
+          node.setAttribute("aria-pressed", "false");
+        }
+        for (const edge of edgeElements.values()) {
+          edge.classList.remove("is-inspected", "is-inspection-muted");
+        }
+      }
+
+      function clearInspection() {
+        pinnedNodeId = null;
+        resetInspectionStyles();
+        graphInspector.textContent = "Inspect a vertex: hover, focus, or tap a node. Tap again or press Escape to clear.";
+      }
+
+      function inspectNode(id, pin = false) {
+        const selected = nodeElements.get(id);
+        if (!selected || selected.classList.contains("is-hidden")) return;
+
+        resetInspectionStyles();
+        const neighbors = new Set();
+        for (const edge of edgeElements.values()) {
+          if (edge.classList.contains("is-hidden")) continue;
+          const incident = edge.dataset.u === id || edge.dataset.v === id;
+          edge.classList.toggle("is-inspected", incident);
+          edge.classList.toggle("is-inspection-muted", !incident);
+          if (incident) neighbors.add(edge.dataset.u === id ? edge.dataset.v : edge.dataset.u);
+        }
+
+        for (const [nodeId, node] of nodeElements) {
+          if (node.classList.contains("is-hidden")) continue;
+          node.classList.toggle("is-inspected", nodeId === id);
+          node.classList.toggle("is-related", neighbors.has(nodeId));
+          node.classList.toggle("is-inspection-muted", nodeId !== id && !neighbors.has(nodeId));
+        }
+
+        selected.setAttribute("aria-pressed", String(pin));
+        if (pin) pinnedNodeId = id;
+
+        const modeDegree = neighbors.size;
+        const neighborList = [...neighbors].map(displayId).join(", ");
+        const strong = document.createElement("strong");
+        strong.textContent = `${displayId(id)} | ${modeDegree} visible neighbor${modeDegree === 1 ? "" : "s"}`;
+        const detail = document.createTextNode(
+          modeDegree
+            ? ` \u2014 ${neighborList}. Full-graph degree: ${degree[id]}.`
+            : ` \u2014 isolated in this induced subgraph. Full-graph degree: ${degree[id]}.`
+        );
+        graphInspector.replaceChildren(strong, detail);
+      }
+
+      function renderMode(modeName, moveFocus = false) {
+        const mode = modes[modeName];
+        if (!mode) return;
+        clearInspection();
+        currentModeName = modeName;
+        pointerInspectReadyAt = performance.now() + 300;
+        applyLayout(modeName);
+
+        modeButtons.forEach(button => {
+          const selected = button.dataset.mode === modeName;
+          button.setAttribute("aria-selected", String(selected));
+          button.tabIndex = selected ? 0 : -1;
+          if (selected && moveFocus) button.focus({preventScroll: true});
+        });
+
+        document.getElementById("mode-index").textContent = mode.index;
+        document.getElementById("mode-title").textContent = mode.title;
+        document.getElementById("mode-lead").textContent = mode.lead;
+        document.getElementById("mode-label").textContent = mode.label;
+        document.getElementById("mode-formula").innerHTML = mode.formula;
+
+        const factList = document.getElementById("mode-facts");
+        factList.replaceChildren(...mode.facts.map(fact => {
+          const item = document.createElement("li");
+          item.textContent = fact;
+          return item;
+        }));
+
+        for (const [id, node] of nodeElements) {
+          node.classList.remove("is-active", "is-muted", "is-hidden", "is-danger");
+          if (mode.activeNodes?.includes(id)) node.classList.add("is-active");
+          if (mode.mutedNodes?.includes(id)) node.classList.add("is-muted");
+          if (mode.hiddenNodes?.includes(id)) node.classList.add("is-hidden");
+          if (mode.dangerNodes?.includes(id)) node.classList.add("is-danger");
+          const hidden = node.classList.contains("is-hidden");
+          node.setAttribute("tabindex", hidden ? "-1" : "0");
+          node.setAttribute("aria-hidden", String(hidden));
+        }
+
+        for (const [key, edge] of edgeElements) {
+          const pair = [edge.dataset.u, edge.dataset.v];
+          edge.classList.remove("is-active", "is-muted", "is-hidden", "is-danger");
+          if (mode.activeEdges?.includes(key)) edge.classList.add("is-active");
+          if (mode.mutedEdgeTest?.(pair)) edge.classList.add("is-muted");
+          if (mode.hiddenEdgeTest?.(pair)) edge.classList.add("is-hidden");
+          if (mode.dangerEdges?.includes(key)) edge.classList.add("is-danger");
+        }
+
+        annotationLayer.replaceChildren();
+        mode.annotations?.forEach(addAnnotation);
+        graph.classList.toggle("show-degrees", Boolean(mode.showDegrees));
+
+        proofPanel.classList.remove("is-changing");
+        void proofPanel.offsetWidth;
+        proofPanel.classList.add("is-changing");
+      }
+
+      modeButtons.forEach(button => {
+        button.addEventListener("click", () => renderMode(button.dataset.mode));
+      });
+
+      for (const [id, node] of nodeElements) {
+        node.addEventListener("pointermove", () => {
+          if (
+            !pinnedNodeId &&
+            performance.now() >= pointerInspectReadyAt &&
+            !node.classList.contains("is-inspected")
+          ) inspectNode(id);
+        });
+        node.addEventListener("pointerleave", () => {
+          if (!pinnedNodeId && document.activeElement !== node) clearInspection();
+        });
+        node.addEventListener("focus", () => {
+          if (!pinnedNodeId) inspectNode(id);
+        });
+        node.addEventListener("blur", () => {
+          if (!pinnedNodeId) clearInspection();
+        });
+        node.addEventListener("click", () => {
+          if (pinnedNodeId === id) clearInspection();
+          else inspectNode(id, true);
+        });
+        node.addEventListener("keydown", event => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            if (pinnedNodeId === id) clearInspection();
+            else inspectNode(id, true);
+          } else if (event.key === "Escape") {
+            event.preventDefault();
+            clearInspection();
+          }
+        });
+      }
+
+      document.querySelector(".mode-switch").addEventListener("keydown", event => {
+        const current = modeButtons.findIndex(button => button.getAttribute("aria-selected") === "true");
+        let next = current;
+        if (event.key === "ArrowRight" || event.key === "ArrowDown") next = (current + 1) % modeButtons.length;
+        else if (event.key === "ArrowLeft" || event.key === "ArrowUp") next = (current - 1 + modeButtons.length) % modeButtons.length;
+        else if (event.key === "Home") next = 0;
+        else if (event.key === "End") next = modeButtons.length - 1;
+        else return;
+        event.preventDefault();
+        renderMode(modeButtons[next].dataset.mode, true);
+      });
+
+      document.addEventListener("keydown", event => {
+        if (event.key === "Escape" && pinnedNodeId) {
+          clearInspection();
+          return;
+        }
+        if (event.altKey || event.ctrlKey || event.metaKey || event.target.closest("input, textarea, select")) return;
+        if (!/^[1-5]$/.test(event.key)) return;
+        renderMode(modeButtons[Number(event.key) - 1].dataset.mode, true);
+      });
+
+      document.querySelectorAll(".mobile-index__sheet a").forEach(link => {
+        link.addEventListener("click", () => link.closest("details").removeAttribute("open"));
+      });
+
+      const sectionLinks = [...document.querySelectorAll("[data-section-link]")];
+      if ("IntersectionObserver" in window) {
+        const observer = new IntersectionObserver(entries => {
+          const visible = entries
+            .filter(entry => entry.isIntersecting)
+            .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+          if (!visible) return;
+          sectionLinks.forEach(link => {
+            if (link.dataset.sectionLink === visible.target.id) link.setAttribute("aria-current", "location");
+            else link.removeAttribute("aria-current");
+          });
+        }, {rootMargin: "-20% 0px -55% 0px", threshold: [0.05, 0.4]});
+        ["statement", "map", "invariants"].forEach(id => observer.observe(document.getElementById(id)));
+      }
+
+      const initialMode = window.location.hash.slice(1);
+      renderMode(modes[initialMode] ? initialMode : "construction");
+
+      window.CONJECTURE_59_GRAPH = Object.freeze({
+        vertices: Object.freeze(Object.keys(positions)),
+        edges: Object.freeze(allEdges.map(edge => Object.freeze([...edge]))),
+        modes: Object.freeze(Object.keys(modes))
+      });
+    })();
+  </script>
+</body>
+</html>
