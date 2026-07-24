@@ -1,6 +1,6 @@
 # Counterexample to WOWII Conjecture 59
 
-[Read the proof (PDF)](/WOWII_Conjecture_59_Counterexample.pdf) | [LaTeX source](/WOWII_Conjecture_59_Counterexample.tex) | [Exact verifier](/verify_counterexample.py)
+[Open the local interactive visualization](./visualization.html) | [Read the proof (PDF)](WOWII_Conjecture_59_Counterexample.pdf) | [LaTeX source](WOWII_Conjecture_59_Counterexample.tex) | [Exact verifier](verify_counterexample.py)
 
 This repository gives an explicit connected graph on 18 vertices that disproves the following form of **Written on the Wall II, Conjecture 59**:
 
@@ -24,6 +24,14 @@ For the graph constructed here,
 | $\left\lceil\sqrt{\mathrm{residue}(G)b(G)}\right\rceil$ | $14$ |
 
 Consequently, the conjectured inequality becomes $13 \ge 14$, which is false.
+
+## Interactive visualization
+
+[Open `visualization.html` locally](./visualization.html)
+
+[![Preview of the interactive 18-vertex counterexample visualization](./conjecture-59-visualization.png)](./visualization.html)
+
+The PNG above links to the local HTML visualization. Open it in a browser to explore five interactive views of the argument: the graph construction, the 17-vertex bipartite witness, the 13-vertex star $K_{1,12}$, the cycle obstructions that rule out 14, and the Havel--Hakimi residue calculation. Hover, focus, or tap a vertex to inspect its visible neighborhood. The page needs no build step or JavaScript packages; web fonts enhance the layout, with local fallbacks for offline use.
 
 ## Graph construction
 
